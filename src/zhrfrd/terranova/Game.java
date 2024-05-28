@@ -17,16 +17,10 @@ public class Game extends Canvas implements Runnable {
 	
 	public static final String TITLE = "Terranova";
 	public static final int WIDTH = 300;
-	public static final int HEIGHT = WIDTH / 16 * 9;   // 16 : 9 resolution
+	public static final int HEIGHT = WIDTH / 16 * 9;   // 16 : 9 resolution.
 	public static final int SCALE = 3;
-	/**
-	 * Main thread of the game.
-	 */
-	private Thread thread;
-	/**
-	 * Main frame of the game window.
-	 */
-	protected JFrame frame;
+	private Thread thread;   // Main thread of the game.
+	protected JFrame frame;   // Main frame of the game window.
 	private boolean running = false;
 	private Screen screen;
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -71,10 +65,11 @@ public class Game extends Canvas implements Runnable {
 			
 			frames ++;
 			
-			// Dispplay the FPS once per second.
-			if (System.currentTimeMillis() - timer > 1000) { 
+			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
+				
 				frame.setTitle(TITLE + " | " + updates + " ups, " + frames + " fps");
+				
 				updates = 0;
 				frames = 0;
 			}
