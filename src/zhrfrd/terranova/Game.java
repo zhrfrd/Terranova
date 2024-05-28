@@ -1,33 +1,99 @@
 package zhrfrd.terranova;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
-public class Game extends Canvas implements Runnable{
+import zhrfrd.terranova.graphics.Screen;
+
+public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	
-	public static int WIDTH = 300;
-	public static int HEIGHT = WIDTH / 16 * 9;   // 16 : 9 resolution
-	public static int SCALE = 3;
-	
-	private Thread threadGame;
+	public static final String TITLE = "Terranova";
+	public static final int WIDTH = 300;
+	public static final int HEIGHT = WIDTH / 16 * 9;   // 16 : 9 resolution
+	public static final int SCALE = 3;
+	/**
+	 * Main thread of the game.
+	 */
+	private Thread thread;
+	/**
+	 * Main frame of the game window.
+	 */
 	protected JFrame frame;
 	private boolean running = false;
+	private Screen screen;
+	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	/**
+	 * Convert the BufferedImage to an array of pixels (Ruster).
+	 */
+	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
 	public Game() {
 		Dimension size = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
 		setPreferredSize(size);
 		
+		screen = new Screen(WIDTH, HEIGHT);
 		frame = new JFrame();
 	}
 
 	@Override
 	public void run() {
+		long lastTime = System.nanoTime();
+		long timer = System.currentTimeMillis();
+		final double NANO_SEC = 1000000000.0 / 60.0;
+		double delta = 0;
+		int frames = 0;
+		int updates = 0;   // This should always be 60 ps.
+		
+		// Game loop.
 		while (running) {
-			System.out.println("threadGame running");
+			long now = System.nanoTime();
+			
+			delta += (now - lastTime) / NANO_SEC;
+			lastTime = now;
+			
+			// Update 60 times per second.
+			while (delta >= 1) {
+				update();
+				
+				updates ++;
+				delta --;
+			}
+			
+			render();
+			
+			frames ++;
+			
+			// Dispplay the FPS once per second.
+			if (System.currentTimeMillis() - timer > 1000) { 
+				timer += 1000;
+				frame.setTitle(TITLE + " | " + updates + " ups, " + frames + " fps");
+				updates = 0;
+				frames = 0;
+			}
 		}
+		
+		stopThreadGame();
+	}
+	
+	/**
+	 * Set the default layout of the game JFrame.
+	 */
+	protected void setFrameGameLayout() {
+		frame.setResizable(false);
+		frame.setTitle(TITLE);
+		frame.add(this);
+		frame.pack();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 	}
 
 	/**
@@ -36,8 +102,8 @@ public class Game extends Canvas implements Runnable{
 	public synchronized void startThreadGame() {
 		running = true;
 		
-		threadGame = new Thread(this, "Display");
-		threadGame.start();
+		thread = new Thread(this, "Display");
+		thread.start();
 	}
 	
 	/**
@@ -47,9 +113,37 @@ public class Game extends Canvas implements Runnable{
 		running = false;
 		
 		try {
-			threadGame.join();
+			thread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void update() {
+		
+	}
+	
+	/**
+	 * Render the graphics of the game on the screen at each game cycle.
+	 */
+	public void render() {
+		BufferStrategy bufferStrategy = getBufferStrategy();
+		
+		if (bufferStrategy == null) {
+			createBufferStrategy(3);
+			return;
+		}
+		
+		screen.clear();
+		screen.render();
+		
+		for (int i = 0; i < pixels.length; i ++) {
+			pixels[i] = screen.pixels[i];
+		}
+		
+		Graphics g = bufferStrategy.getDrawGraphics();
+		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		g.dispose();
+		bufferStrategy.show();
 	}
 }
