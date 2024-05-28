@@ -8,4 +8,7 @@ I'm still not sure if developing a space game or a classic land strategy game.
 
 - [x] Create the game window.
 - [x] Create basic game loop.
-- [ ] Create squared grid for the game.
+- [x] Create tile map. (Currently the tile map consists of colored tiles. Later I'll switch to images.
+	- [ ] Add support for moving around the map by pressing and dragging the mouse.
+	- [ ] Add support for selecting a particular tile.
+	- [ ] When moving an object on the map, it must be centered in the current tile.

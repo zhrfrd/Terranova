@@ -24,11 +24,11 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 	private Screen screen;
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-	/**
-	 * Convert the BufferedImage to an array of pixels (Ruster).
-	 */
-	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
+	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();   // Convert the BufferedImage to an array of pixels (Ruster).
 	
+	/**
+	 * Create a new Game object which contains the main thread, frame, screen and game loop.
+	 */
 	public Game() {
 		Dimension size = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
 		setPreferredSize(size);
@@ -102,7 +102,7 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	/**
-	 * Close the main thread of the game.
+	 * Stop the main thread of the game.
 	 */
 	public synchronized void stopThreadGame() {
 		running = false;
@@ -119,7 +119,8 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	/**
-	 * Render the graphics of the game on the screen at each game cycle.
+	 * Call the {@link Screen#render} method (responsible to handle the rendering of each pixels on the screen) 
+	 * and draw the actual result. This method is called at each game loop iteration. 
 	 */
 	public void render() {
 		BufferStrategy bufferStrategy = getBufferStrategy();

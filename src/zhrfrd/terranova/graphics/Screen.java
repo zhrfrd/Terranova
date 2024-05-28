@@ -11,6 +11,11 @@ public class Screen {
 	public int[] tiles = new int[MAP_SIZE];
 	private Random random = new Random();
 	
+	/**
+	 * Create a new Screen object which will be responsible for the rendering of the graphics.
+	 * @param width The width of the screen in pixels.
+	 * @param height The height of the screen in pixels.
+	 */
 	public Screen (int width, int height) {
 		this.width = width;
 		this.height = height;
