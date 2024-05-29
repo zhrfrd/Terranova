@@ -3,16 +3,17 @@ package zhrfrd.terranova.graphics;
 import java.util.Random;
 
 public class Screen {
-	public final int TILE_SIZE = 16;
-	public final int MAP_SIZE = 64 * 64;   // 64 tiles x 64 tiles.
+	public final int TILE_SIZE_MASK = 4;   // 16 pixels  
+	public final int MAP_SIZE = 8;   // 8 tiles x 8 tiles.
+	public final int MAP_SIZE_MASK = MAP_SIZE - 1;   // Used for bitwise operation
 	private int width;
 	private int height;
 	public int[] pixels;
-	public int[] tiles = new int[MAP_SIZE];
+	public int[] tiles = new int[MAP_SIZE * MAP_SIZE];
 	private Random random = new Random();
 	
 	/**
-	 * Create a new Screen object which will be responsible for the rendering of the graphics.
+	 * Create a new Screen object responsible for the rendering of the graphics.
 	 * @param width The width of the screen in pixels.
 	 * @param height The height of the screen in pixels.
 	 */
@@ -21,28 +22,32 @@ public class Screen {
 		this.height = height;
 		pixels = new int[width * height];
 		
-		for (int i = 0; i < MAP_SIZE; i ++) {
+		for (int i = 0; i < MAP_SIZE * MAP_SIZE; i ++) {
 			tiles[i] = random.nextInt(0xffffff);
 		}
 	}
 	
 	/**
-	 * Render the graphics on the screen pixel by pixel at each game cycle.
+	 * Iterate through each pixel of the screen and render it with it color value.
+	 * @param xOffset Difference between the original x position and the new current x position originated by the input.
+	 * @param yOffset Difference between the original y position and the new current y position originated by the input.
 	 */
-	public void render() {
+	public void render(int xOffset, int yOffset	) {
 		for (int y = 0; y < height; y ++) {
-			if (y < 0 || y >= height) {
-				break;
+			int yPixel = y + yOffset;
+			
+			if (yPixel < 0 || yPixel >= height) {
+				continue;
 			}
 			
 			for (int x = 0; x < width; x ++) {
-				if (x < 0 || x >= width) {
-					break;
+				int xPixel = x + xOffset;
+				
+				if (xPixel < 0 || xPixel >= width) {
+					continue;
 				}
 				
-				int tileIndex = (x / TILE_SIZE) + (y / TILE_SIZE) * 64;
-				
-				pixels[x + (y * width)] = tiles[tileIndex];
+				pixels[xPixel + (yPixel * width)] = Sprite.grass.pixels[(x & 15) + ((y & 15) * Sprite.grass.SIZE)];
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 package zhrfrd.terranova;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -11,6 +10,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import zhrfrd.terranova.graphics.Screen;
+import zhrfrd.terranova.input.Keyboard;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -21,6 +21,7 @@ public class Game extends Canvas implements Runnable {
 	public static final int SCALE = 3;
 	private Thread thread;   // Main thread of the game.
 	protected JFrame frame;   // Main frame of the game window.
+	private	 Keyboard key;
 	private boolean running = false;
 	private Screen screen;
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -35,6 +36,9 @@ public class Game extends Canvas implements Runnable {
 		
 		screen = new Screen(WIDTH, HEIGHT);
 		frame = new JFrame();
+		key = new Keyboard();
+		
+		addKeyListener(key);
 	}
 
 	@Override
@@ -45,6 +49,8 @@ public class Game extends Canvas implements Runnable {
 		double delta = 0;
 		int frames = 0;
 		int updates = 0;   // This should always be 60 ps.
+		
+		requestFocus();
 		
 		// Game loop.
 		while (running) {
@@ -114,8 +120,28 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 	
+	private int x = 0;
+	private int y = 0;
+	
+	/**
+	 * Update the current game status.
+	 */
 	public void update() {
+		key.update();
 		
+		if (key.up) {
+			y ++;
+		}
+		
+		if (key.down) {
+			y --;
+		}
+		if (key.left) {
+			x ++;
+		}
+		if (key.right) {
+			x --;
+		}
 	}
 	
 	/**
@@ -131,7 +157,7 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		screen.clear();
-		screen.render();
+		screen.render(x, y);
 		
 		for (int i = 0; i < pixels.length; i ++) {
 			pixels[i] = screen.pixels[i];

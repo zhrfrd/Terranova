@@ -12,3 +12,4 @@ I'm still not sure if developing a space game or a classic land strategy game.
 	- [ ] Add support for moving around the map by pressing and dragging the mouse.
 	- [ ] Add support for selecting a particular tile.
 	- [ ] When moving an object on the map, it must be centered in the current tile.
+- [ ] Use bitwize operation when possible for optimisation.
