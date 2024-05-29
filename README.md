@@ -12,4 +12,5 @@ I'm still not sure if developing a space game or a classic land strategy game.
 	- [ ] Add support for selecting a particular tile.
 	- [ ] When moving an object on the map, it must be centered in the current tile.
 	- [ ] Allow movement around the map by dragging and dropping.
+		- [x] Before drag-drop map, suport map movement by selecting a particular part of the screen.
 - [ ] Use bitwize operation when possible for optimisation.
