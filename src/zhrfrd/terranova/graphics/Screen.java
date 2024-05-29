@@ -6,8 +6,8 @@ public class Screen {
 	public final int TILE_SIZE_MASK = 4;   // 16 pixels  
 	public final int MAP_SIZE = 8;   // 8 tiles x 8 tiles.
 	public final int MAP_SIZE_MASK = MAP_SIZE - 1;   // Used for bitwise operation
-	private int width;
-	private int height;
+	public int width;
+	public int height;
 	public int[] pixels;
 	public int[] tiles = new int[MAP_SIZE * MAP_SIZE];
 	private Random random = new Random();

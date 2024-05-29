@@ -1,6 +1,7 @@
 package zhrfrd.terranova;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -11,6 +12,7 @@ import javax.swing.JFrame;
 
 import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.input.Keyboard;
+import zhrfrd.terranova.input.Mouse;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -20,8 +22,9 @@ public class Game extends Canvas implements Runnable {
 	public static final int HEIGHT = WIDTH / 16 * 9;   // 16 : 9 resolution.
 	public static final int SCALE = 3;
 	private Thread thread;   // Main thread of the game.
-	protected JFrame frame;   // Main frame of the game window.
+	private JFrame frame;   // Main frame of the game window.
 	private	 Keyboard key;
+	private Mouse mouse;
 	private boolean running = false;
 	private Screen screen;
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -37,8 +40,11 @@ public class Game extends Canvas implements Runnable {
 		screen = new Screen(WIDTH, HEIGHT);
 		frame = new JFrame();
 		key = new Keyboard();
-		
 		addKeyListener(key);
+		
+		mouse = new Mouse();
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 	}
 
 	@Override
@@ -124,23 +130,14 @@ public class Game extends Canvas implements Runnable {
 	private int y = 0;
 	
 	/**
-	 * Update the current game status.
+	 * Update the current game status such as mouse click to update map position.
 	 */
 	public void update() {
-		key.update();
-		
-		if (key.up) {
-			y ++;
-		}
-		
-		if (key.down) {
-			y --;
-		}
-		if (key.left) {
-			x ++;
-		}
-		if (key.right) {
-			x --;
+		if (mouse.isClicked) {
+			x += (screen.width / 2) - mouse.getMouseClickX();			
+			y += (screen.height / 2) - mouse.getMouseClickY();
+			
+			mouse.isClicked = false; 
 		}
 	}
 	
@@ -165,6 +162,12 @@ public class Game extends Canvas implements Runnable {
 		
 		Graphics g = bufferStrategy.getDrawGraphics();
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		
+		// MOUSE TEST
+		g.fillRect(Mouse.getX() - 16, Mouse.getY() - 16, 32, 32);
+		g.setColor(Color.WHITE);
+		g.drawString("Button :" + Mouse.getButton() + ", X:" + Mouse.getX() / 3 + ", Y:" + Mouse.getY() / 3, 16, 16);
+		
 		g.dispose();
 		bufferStrategy.show();
 	}
