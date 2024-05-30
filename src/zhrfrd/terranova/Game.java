@@ -128,16 +128,30 @@ public class Game extends Canvas implements Runnable {
 	
 	private int x = 0;
 	private int y = 0;
+	private int initialX = 0;
+	private int initialY = 0;
+	private int lastOffsetX = 0;
+	private int lastOffsetY = 0;
 	
 	/**
-	 * Update the current game status such as mouse click to update map position.
+	 * Update the current game status such as mouse click to update map position, mouse drag...
 	 */
 	public void update() {
-		if (mouse.isClicked) {
-			x += (screen.width / 2) - mouse.getMouseClickX();			
-			y += (screen.height / 2) - mouse.getMouseClickY();
+		if (Mouse.isDoubleClicked) {
+			x += (screen.width / 2) - (Mouse.getMouseClickX() / SCALE);			
+			y += (screen.height / 2) - (Mouse.getMouseClickY() / SCALE);
 			
-			mouse.isClicked = false; 
+			Mouse.isDoubleClicked = false; 
+		}
+		
+		if (!Mouse.isDragged) {
+			initialX = Mouse.getX() / SCALE;
+			initialY = Mouse.getY() / SCALE;
+			lastOffsetX = screen.lastOffsetX;
+			lastOffsetY = screen.lastOffsetY; 
+		} else {
+			x = lastOffsetX + (Mouse.getMouseDragX() / SCALE) - initialX;
+			y = lastOffsetY + (Mouse.getMouseDragY() / SCALE) - initialY;
 		}
 	}
 	
@@ -164,9 +178,9 @@ public class Game extends Canvas implements Runnable {
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		
 		// MOUSE TEST
-		g.fillRect(Mouse.getX() - 16, Mouse.getY() - 16, 32, 32);
 		g.setColor(Color.WHITE);
-		g.drawString("Button :" + Mouse.getButton() + ", X:" + Mouse.getX() / 3 + ", Y:" + Mouse.getY() / 3, 16, 16);
+		g.drawString("Button :" + mouse.getButton() + ", X:" + mouse.getX() / 3 + ", Y:" + mouse.getY() / 3, 16, 16);
+		// ----------
 		
 		g.dispose();
 		bufferStrategy.show();

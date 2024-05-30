@@ -8,6 +8,8 @@ public class Screen {
 	public final int MAP_SIZE_MASK = MAP_SIZE - 1;   // Used for bitwise operation
 	public int width;
 	public int height;
+	public int lastOffsetX = 0;
+	public int lastOffsetY = 0;
 	public int[] pixels;
 	public int[] tiles = new int[MAP_SIZE * MAP_SIZE];
 	private Random random = new Random();
@@ -29,19 +31,22 @@ public class Screen {
 	
 	/**
 	 * Iterate through each pixel of the screen and render it with it color value.
-	 * @param xOffset Difference between the original x position and the new current x position originated by the input.
-	 * @param yOffset Difference between the original y position and the new current y position originated by the input.
+	 * @param offsetX Difference between the original x position and the new current x position originated by the input.
+	 * @param offsetY Difference between the original y position and the new current y position originated by the input.
 	 */
-	public void render(int xOffset, int yOffset	) {
+	public void render(int offsetX, int offsetY) {
+		lastOffsetX = offsetX;
+		lastOffsetY = offsetY;
+		
 		for (int y = 0; y < height; y ++) {
-			int yPixel = y + yOffset;
+			int yPixel = y + offsetY;
 			
 			if (yPixel < 0 || yPixel >= height) {
 				continue;
 			}
 			
 			for (int x = 0; x < width; x ++) {
-				int xPixel = x + xOffset;
+				int xPixel = x + offsetX;
 				
 				if (xPixel < 0 || xPixel >= width) {
 					continue;

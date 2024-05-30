@@ -9,15 +9,24 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	private static int mouseY = -1;
 	private static int mouseClickX = -1;
 	private static int mouseClickY = -1;
+	private static int mouseDragX = -1;
+	private static int mouseDragY = -1;
 	private static int mouseButton = -1;
-	public boolean isClicked = false;
-	private static final int SCALE = 3;
+	public static boolean isClicked = false;
+	public static boolean isDoubleClicked = false;
+	public static boolean isDragged = false;
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		mouseClickX = e.getX() / SCALE;
-		mouseClickY = e.getY() / SCALE;
+		mouseClickX = e.getX();
+		mouseClickY = e.getY();
 		isClicked = true;
+		
+		if (e.getClickCount() == 2 && !e.isConsumed()) {
+		     e.consume();
+		     
+		     isDoubleClicked = true;
+		}
 	}
 
 	@Override
@@ -28,6 +37,7 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		mouseButton = -1;
+		isDragged = false;
 	}
 
 	@Override
@@ -40,6 +50,9 @@ public class Mouse implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		mouseDragX = e.getX();
+		mouseDragY = e.getY();
+		isDragged = true;
 	}
 
 	@Override
@@ -65,23 +78,43 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	}
 	
 	/**
-	 * Get the x position on the game screen of the mouse when clicked.
+	 * Get the x position of the mouse when clicked on the game screen.
 	 * @return The x position of the mouse when clicked.
-	 * Note that value of x is divided by the {@code SCALE} when the mouse is clicked and 
-	 * the method {@link #mouseClicked} is called.
+	 * @Note The value of x represents the real value in pixels and it will be later in
+	 * the game divided by the {@link Game#SCALE}.
 	 */
-	public int getMouseClickX() {
+	public static int getMouseClickX() {
 		return mouseClickX;
 	}
 	
 	/**
-	 * Get the y position on teh game screen of the mouse when clicked.
+	 * Get the y position of the mouse when clicked on the game screen.
 	 * @return The y position of the mouse when clicked.
-	 * Note that value of y is divided by the {@code SCALE} when the mouse is clicked and 
-	 * the method {@link #mouseClicked} is called.
+	 * @Note The value of y represents the real value in pixels and it will be later in
+	 * the game divided by the {@link Game#SCALE}.
 	 */
-	public int getMouseClickY() {
+	public static int getMouseClickY() {
 		return mouseClickY;
+	}
+	
+	/**
+	 * Get the x position of the mouse while dragging on the game screen.
+	 * @return The x position of the mouse while dragging.
+	 * @Note The value of x represents the real value in pixels and it will be later in
+	 * the game divided by the {@link Game#SCALE}.
+	 */
+	public static int getMouseDragX() {
+		return mouseDragX;
+	}
+	
+	/**
+	 * Get the y position of the mouse while dragging on the game screen.
+	 * @return The y position of the mouse while dragging.
+	 * @Note The value of y represents the real value in pixels and it will be later in
+	 * the game divided by the {@link Game#SCALE}.
+	 */
+	public static int getMouseDragY() {
+		return mouseDragY;
 	}
 	
 	/**
