@@ -151,7 +151,7 @@ public class Game extends Canvas implements Runnable {
 		
 		screen.clear();
 //		screen.render(x, y);
-		level.render(xTotalOffset, yTotalOffset, screen);
+		level.render(-xTotalOffset, -yTotalOffset, screen, xTotalOffset, yTotalOffset);
 		
 		for (int i = 0; i < pixels.length; i ++) {
 			pixels[i] = screen.pixels[i];

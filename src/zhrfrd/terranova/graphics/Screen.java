@@ -12,6 +12,8 @@ public class Screen {
 	public int height;
 	public int xOffset;
 	public int yOffset;
+	public int xTotalOffset;
+	public int yTotalOffset;
 	public int lastXoffset = 0;
 	public int lastYoffset = 0;
 	public int[] pixels;
@@ -66,8 +68,10 @@ public class Screen {
 	// Absolute position: position relative to the entire world.
 	// Relative position: position relative to an object.
 	public void renderTile(int xp, int yp, Tile tile) {
-		xp += xOffset;
-		yp += yOffset;
+		lastXoffset = xTotalOffset;
+		lastYoffset = yTotalOffset;
+		xp -= xOffset;
+		yp -= yOffset;
 		
 		for (int y = 0; y < tile.sprite.SIZE; y ++) {
 			int yAbsoulte = y + yp;
@@ -100,6 +104,11 @@ public class Screen {
 	public void setOffset(int xOffset, int yOffset) {
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
+	}
+	
+	public void setTotalOffset(int xTotalOffset, int yTotalOffset) {
+		this.xTotalOffset = xTotalOffset;
+		this.yTotalOffset = yTotalOffset;
 	}
 }
 
