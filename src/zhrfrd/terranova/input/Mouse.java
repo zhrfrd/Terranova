@@ -5,12 +5,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class Mouse implements MouseListener, MouseMotionListener {
-	private static int mouseX = -1;
-	private static int mouseY = -1;
-	private static int mouseClickX = -1;
-	private static int mouseClickY = -1;
-	private static int mouseDragX = -1;
-	private static int mouseDragY = -1;
+	private static int xMouse = -1;
+	private static int yMouse = -1;
+	private static int xMouseClick = -1;
+	private static int yMouseClick = -1;
+	private static int xMouseDrag = -1;
+	private static int yMouseDrag = -1;
 	private static int mouseButton = -1;
 	public static boolean isClicked = false;
 	public static boolean isDoubleClicked = false;
@@ -18,8 +18,8 @@ public class Mouse implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		mouseClickX = e.getX();
-		mouseClickY = e.getY();
+		xMouseClick = e.getX();
+		yMouseClick = e.getY();
 		isClicked = true;
 		
 		if (e.getClickCount() == 2 && !e.isConsumed()) {
@@ -50,15 +50,15 @@ public class Mouse implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		mouseDragX = e.getX();
-		mouseDragY = e.getY();
+		xMouseDrag = e.getX();
+		yMouseDrag = e.getY();
 		isDragged = true;
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		mouseX = e.getX();
-		mouseY = e.getY();
+		xMouse = e.getX();
+		yMouse = e.getY();
 	}
 	
 	/**
@@ -66,7 +66,7 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	 * @return The mouse x coordinate.
 	 */
 	public static int getX() {
-		return mouseX;
+		return xMouse;
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	 * @return The mouse y coordinate.
 	 */
 	public static int getY() {
-		return mouseY;
+		return yMouse;
 	}
 	
 	/**
@@ -83,8 +83,8 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	 * @Note The value of x represents the real value in pixels and it will be later in
 	 * the game divided by the {@link Game#SCALE}.
 	 */
-	public static int getMouseClickX() {
-		return mouseClickX;
+	public static int getXmouseClick() {
+		return xMouseClick;
 	}
 	
 	/**
@@ -93,8 +93,8 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	 * @Note The value of y represents the real value in pixels and it will be later in
 	 * the game divided by the {@link Game#SCALE}.
 	 */
-	public static int getMouseClickY() {
-		return mouseClickY;
+	public static int getYmouseClick() {
+		return yMouseClick;
 	}
 	
 	/**
@@ -103,8 +103,8 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	 * @Note The value of x represents the real value in pixels and it will be later in
 	 * the game divided by the {@link Game#SCALE}.
 	 */
-	public static int getMouseDragX() {
-		return mouseDragX;
+	public static int getXmouseDrag() {
+		return xMouseDrag;
 	}
 	
 	/**
@@ -113,8 +113,8 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	 * @Note The value of y represents the real value in pixels and it will be later in
 	 * the game divided by the {@link Game#SCALE}.
 	 */
-	public static int getMouseDragY() {
-		return mouseDragY;
+	public static int getYmouseDrag() {
+		return yMouseDrag;
 	}
 	
 	/**

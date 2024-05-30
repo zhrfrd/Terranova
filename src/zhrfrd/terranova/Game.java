@@ -13,6 +13,8 @@ import javax.swing.JFrame;
 import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.input.Keyboard;
 import zhrfrd.terranova.input.Mouse;
+import zhrfrd.terranova.level.Level;
+import zhrfrd.terranova.level.RandomLevel;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -25,6 +27,7 @@ public class Game extends Canvas implements Runnable {
 	private JFrame frame;   // Main frame of the game window.
 	private	 Keyboard key;
 	private Mouse mouse;
+	private Level level;
 	private boolean running = false;
 	private Screen screen;
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -39,6 +42,7 @@ public class Game extends Canvas implements Runnable {
 		
 		screen = new Screen(WIDTH, HEIGHT);
 		frame = new JFrame();
+		level = new RandomLevel(64, 64);
 		key = new Keyboard();
 		addKeyListener(key);
 		
@@ -126,33 +130,11 @@ public class Game extends Canvas implements Runnable {
 		}
 	}
 	
-	private int x = 0;
-	private int y = 0;
-	private int initialX = 0;
-	private int initialY = 0;
-	private int lastOffsetX = 0;
-	private int lastOffsetY = 0;
-	
 	/**
-	 * Update the current game status such as mouse click to update map position, mouse drag...
+	 * Update the current game status and inputs.
 	 */
 	public void update() {
-		if (Mouse.isDoubleClicked) {
-			x += (screen.width / 2) - (Mouse.getMouseClickX() / SCALE);			
-			y += (screen.height / 2) - (Mouse.getMouseClickY() / SCALE);
-			
-			Mouse.isDoubleClicked = false; 
-		}
-		
-		if (!Mouse.isDragged) {
-			initialX = Mouse.getX() / SCALE;
-			initialY = Mouse.getY() / SCALE;
-			lastOffsetX = screen.lastOffsetX;
-			lastOffsetY = screen.lastOffsetY; 
-		} else {
-			x = lastOffsetX + (Mouse.getMouseDragX() / SCALE) - initialX;
-			y = lastOffsetY + (Mouse.getMouseDragY() / SCALE) - initialY;
-		}
+		updateMouseEvents();
 	}
 	
 	/**
@@ -168,7 +150,8 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		screen.clear();
-		screen.render(x, y);
+//		screen.render(x, y);
+		level.render(xTotalOffset, yTotalOffset, screen);
 		
 		for (int i = 0; i < pixels.length; i ++) {
 			pixels[i] = screen.pixels[i];
@@ -179,10 +162,42 @@ public class Game extends Canvas implements Runnable {
 		
 		// MOUSE TEST
 		g.setColor(Color.WHITE);
-		g.drawString("Button :" + mouse.getButton() + ", X:" + mouse.getX() / 3 + ", Y:" + mouse.getY() / 3, 16, 16);
+		g.drawString("Button :" + Mouse.getButton() + ", X:" + Mouse.getX() / 3 + ", Y:" + Mouse.getY() / 3, 16, 16);
 		// ----------
 		
 		g.dispose();
 		bufferStrategy.show();
+	}
+	
+	private int xTotalOffset = 0;
+	private int yTotalOffset = 0;
+	private int xInitial = 0;
+	private int yInitial = 0;
+	private int xLastOffset = 0;
+	private int yLastOffset = 0;
+	
+	/**
+	 * Get the current mouse event and update the game status based on the outcome.
+	 */
+	private void updateMouseEvents() {
+		if (Mouse.isDoubleClicked) {
+			xTotalOffset += (screen.width / 2) - (Mouse.getXmouseClick() / SCALE);			
+			yTotalOffset += (screen.height / 2) - (Mouse.getYmouseClick() / SCALE);
+			
+			Mouse.isDoubleClicked = false; 
+		}
+		
+		if (!Mouse.isDragged) {
+			xInitial = Mouse.getX() / SCALE;
+			yInitial = Mouse.getY() / SCALE;
+			xLastOffset = screen.lastXoffset;
+			yLastOffset = screen.lastYoffset; 
+		} else {
+			int xDrag = Mouse.getXmouseDrag() / SCALE;
+			int yDrag = Mouse.getYmouseDrag() / SCALE;
+			
+			xTotalOffset = xLastOffset + xDrag - xInitial;
+			yTotalOffset = yLastOffset + yDrag - yInitial;
+		}
 	}
 }

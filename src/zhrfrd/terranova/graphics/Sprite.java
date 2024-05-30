@@ -8,6 +8,8 @@ public class Sprite {
 	private SpriteSheet sheet;
 	
 	public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
+	public static Sprite voidSprite = new Sprite(16, 0x7DF9FF);
+	
 	
 	/**
 	 * The Sprite class represent the sprite of a particular graphic element of the game.
@@ -26,6 +28,13 @@ public class Sprite {
 		load();
 	}
 	
+	public Sprite(int size, int color) {
+		SIZE = size;
+		pixels = new int[SIZE * SIZE];
+		
+		setColor(color);
+	}
+	
 	/**
 	 * Extract every single sprite out of the spritesheet by assigning each pixel of the sprite 
 	 * to the corresponding pixel in the spritesheet.
@@ -35,6 +44,16 @@ public class Sprite {
 			for (int x = 0; x < SIZE; x ++) {
 				pixels[x + (y * SIZE)] = sheet.pixels[(x + this.x) + ((y + this.y) * sheet.SIZE)];
 			}
+		}
+	}
+	
+	/**
+	 * Fill up the specified sprite with a particular color pixel by pixel.
+	 * @param color The color that you want to fill up the sprite with.
+	 */
+	private void setColor(int color) {
+		for (int i = 0; i < SIZE * SIZE; i ++) {
+			pixels[i] = color;
 		}
 	}
 }
