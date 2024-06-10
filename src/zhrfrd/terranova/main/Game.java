@@ -28,10 +28,13 @@ public class Game extends Canvas implements Runnable {
 	private	 Keyboard key;
 	private Mouse mouse;
 	private Level level;
+	private Util util;
 	private boolean running = false;
 	private Screen screen;
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();   // Convert the BufferedImage to an array of pixels (Ruster).
+	int ups = 0;
+	int fps = 0;
 	
 	/**
 	 * Create a new Game object which contains the main thread, frame, screen and game loop.
@@ -49,6 +52,8 @@ public class Game extends Canvas implements Runnable {
 		mouse = new Mouse();
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
+		
+		util = new Util(frame);
 	}
 
 	@Override
@@ -84,7 +89,8 @@ public class Game extends Canvas implements Runnable {
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
 				
-				frame.setTitle(TITLE + " | " + updates + " ups, " + frames + " fps");
+				ups = updates;
+				fps = frames;
 				
 				updates = 0;
 				frames = 0;
@@ -135,6 +141,7 @@ public class Game extends Canvas implements Runnable {
 	 */
 	public void update() {
 		updateMouseEvents();
+		updateKeyboardEvents();
 	}
 	
 	/**
@@ -198,6 +205,19 @@ public class Game extends Canvas implements Runnable {
 			
 			xTotalOffset = xLastOffset + xDrag - xInitial;
 			yTotalOffset = yLastOffset + yDrag - yInitial;
+		}
+	}
+	
+	/**
+	 * Get the current keyboard event and update the game status based on the outcome.
+	 */
+	private void updateKeyboardEvents() {
+		key.update();
+		
+		if (key.performance) {
+			util.showPerformanceOnTitle(TITLE, ups, fps);
+		} else {
+			util.resetOriginalTitle(TITLE);
 		}
 	}
 }
