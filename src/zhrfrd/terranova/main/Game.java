@@ -1,4 +1,4 @@
-package zhrfrd.terranova;
+package zhrfrd.terranova.main;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -151,7 +151,7 @@ public class Game extends Canvas implements Runnable {
 		
 		screen.clear();
 //		screen.render(x, y);
-		level.render(-xTotalOffset, -yTotalOffset, screen, xTotalOffset, yTotalOffset);
+		level.render(-xTotalOffset, -yTotalOffset, xTotalOffset, yTotalOffset, screen);
 		
 		for (int i = 0; i < pixels.length; i ++) {
 			pixels[i] = screen.pixels[i];

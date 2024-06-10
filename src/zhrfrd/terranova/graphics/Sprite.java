@@ -28,6 +28,12 @@ public class Sprite {
 		load();
 	}
 	
+	/**
+	 * The Sprite class represent the sprite of a particular graphic element of the game.
+	 * This method allow to create a basic sprite simply out of a color. E.g. void tile
+	 * @param size The sprite size in pixels.
+	 * @param color The color to fill the sprite with.
+	 */
 	public Sprite(int size, int color) {
 		SIZE = size;
 		pixels = new int[SIZE * SIZE];

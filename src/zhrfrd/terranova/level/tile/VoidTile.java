@@ -5,6 +5,10 @@ import zhrfrd.terranova.graphics.Sprite;
 
 public class VoidTile extends Tile {
 
+	/**
+	 * A tile representing void.
+	 * @param sprite The sprite assigned to the tile.
+	 */
 	public VoidTile(Sprite sprite) {
 		super(sprite);
 	}

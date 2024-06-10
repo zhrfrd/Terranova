@@ -35,49 +35,25 @@ public class Screen {
 		}
 	}
 	
-//	/**
-//	 * Iterate through each pixel of the screen and render it with its color value.
-//	 * @param offsetX Difference between the original x position and the new current x position originated by the input.
-//	 * @param offsetY Difference between the original y position and the new current y position originated by the input.
-//	 */
-//	public void render(int xOffset, int yOffset) {
-//		lastXoffset = xOffset;
-//		lastYoffset = yOffset;
-//		
-//		for (int y = 0; y < height; y ++) {
-//			int pixelY = y + yOffset;
-//			
-//			// Prevent IndexOutOfBound exception when moving the map.
-//			if (pixelY < 0 || pixelY >= height) {
-//				continue;
-//			}
-//			
-//			for (int x = 0; x < width; x ++) {
-//				int pixelX = x + xOffset;
-//			
-//				// Prevent IndexOutOfBound exception when moving the map.
-//				if (pixelX < 0 || pixelX >= width) {
-//					continue;
-//				}
-//				
-//				pixels[pixelX + (pixelY * width)] = Sprite.grass.pixels[(x & 15) + ((y & 15) * Sprite.grass.SIZE)];
-//			}
-//		}
-//	}
-	
 	// Absolute position: position relative to the entire world.
 	// Relative position: position relative to an object.
-	public void renderTile(int xp, int yp, Tile tile) {
+	/**
+	 * Iterate through each pixel of the screen and render it with the relative sprite.
+	 * @param xPosition
+	 * @param yPosition
+	 * @param tile The current tile to be rendered.
+	 */
+	public void renderTile(int xPosition, int yPosition, Tile tile) {
 		lastXoffset = xTotalOffset;
 		lastYoffset = yTotalOffset;
-		xp -= xOffset;
-		yp -= yOffset;
+		xPosition -= xOffset;
+		yPosition -= yOffset;
 		
 		for (int y = 0; y < tile.sprite.SIZE; y ++) {
-			int yAbsoulte = y + yp;
+			int yAbsoulte = y + yPosition;
 			
 			for (int x = 0; x < tile.sprite.SIZE; x ++) {
-				int xAbsolute = x + xp;
+				int xAbsolute = x + xPosition;
 				
 				if (xAbsolute < -tile.sprite.SIZE || xAbsolute >= width || yAbsoulte < 0 || yAbsoulte >= height) {
 					break;
@@ -101,11 +77,21 @@ public class Screen {
 		}
 	}
 	
+	/**
+	 * Set the current offset values from the last completed movement. 
+	 * @param xOffset The x offset.
+	 * @param yOffset The y offset.
+	 */
 	public void setOffset(int xOffset, int yOffset) {
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
 	}
 	
+	/**
+	 * Set the total offset value from the first completed movement.
+	 * @param xTotalOffset The total x offset.
+	 * @param yTotalOffset The total y offset.
+	 */
 	public void setTotalOffset(int xTotalOffset, int yTotalOffset) {
 		this.xTotalOffset = xTotalOffset;
 		this.yTotalOffset = yTotalOffset;

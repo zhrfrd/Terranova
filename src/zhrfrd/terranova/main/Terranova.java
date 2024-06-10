@@ -1,4 +1,4 @@
-package zhrfrd.terranova;
+package zhrfrd.terranova.main;
 
 public class Terranova {
 	public static void main(String[] args) {
