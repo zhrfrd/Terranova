@@ -45,7 +45,7 @@ public class Game extends Canvas implements Runnable {
 		
 		screen = new Screen(WIDTH, HEIGHT);
 		frame = new JFrame();
-		level = new RandomLevel(64, 64);
+		level = new RandomLevel(32, 32);
 		key = new Keyboard();
 		addKeyListener(key);
 		

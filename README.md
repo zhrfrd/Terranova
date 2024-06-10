@@ -10,7 +10,8 @@ I'm still not sure if developing a space game or a classic land strategy game.
 - [x] Create basic game loop.
 - [x] Create tile map.
 	- [ ] Add support for selecting a particular tile.
-	- [ ] When moving an object on the map, it must be centered in the current tile.
+	- [ ] When moving an object on the map, it must be centred in the current tile.
 	- [ ] Allow movement around the map by dragging and dropping.
-		- [x] Before drag-drop map, suport map movement by selecting a particular part of the screen.
+		- [x] Before drag-drop map, support map movement by selecting a particular part of the screen.
+	- [ ] Fix IndexOutOfBounds exception when scrolling too south on the map. Need to set boundaries of the map so to limit the scroll 
 - [ ] Use bitwize operation when possible for optimisation.

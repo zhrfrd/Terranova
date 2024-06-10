@@ -65,7 +65,7 @@ public class Level {
 		this.xTotalOffset = xTotalOffset;
 		this.yTotalOffset = yTotalOffset;
 		
-		// Corner pins: define which are of the map needs to be rendered.
+		// Corner pins: define which area of the map needs to be rendered.
 		int x0 = (xOffset >> 4);
 		int x1 = (xOffset + screen.width + 16) >> 4;
 		int y0 = (yOffset >> 4);
