@@ -79,7 +79,7 @@ public class Level {
 	}
 	
 	/**
-	 * Get the tile
+	 * Get the tile.
 	 * @param x The x position of the tile in the map (tile precision, not pixel precision).
 	 * @param y The y position of the tile in the map (tile precision, not pixel precision).
 	 * @return The tile.
@@ -91,7 +91,11 @@ public class Level {
 		}
 		
 		if (tiles[x + (y * width)] == 0) {
-			return Tile.grass;
+			return Tile.grassland;
+		}
+		
+		if (tiles[x + (y * width)] == 1) {
+			return Tile.mountain;
 		}
 		
 		return Tile.voidTile;

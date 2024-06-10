@@ -7,7 +7,8 @@ public abstract class Tile {
 	public int x;
 	public int y;
 	public Sprite sprite;
-	public static Tile grass = new GrassTile(Sprite.grass);
+	public static Tile grassland = new GrassTile(Sprite.grassland);
+	public static Tile mountain = new MountainTile(Sprite.mountain);
 	public static Tile voidTile = new VoidTile(Sprite.voidSprite);
 	
 	/**

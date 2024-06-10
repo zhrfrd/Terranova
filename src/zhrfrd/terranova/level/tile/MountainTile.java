@@ -3,12 +3,12 @@ package zhrfrd.terranova.level.tile;
 import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.graphics.Sprite;
 
-public class GrassTile extends Tile {
+public class MountainTile extends Tile {
 	/**
-	 * A tile representing grassland.
+	 * A tile representing a mountain.
 	 * @param sprite The sprite assigned to the tile.
 	 */
-	public GrassTile(Sprite sprite) {
+	public MountainTile(Sprite sprite) {
 		super(sprite);
 	}
 
