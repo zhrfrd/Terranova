@@ -1,16 +1,16 @@
-package zhrfrd.terranova.level;
+package zhrfrd.terranova.world;
 
 import java.util.Random;
 
-public class RandomLevel extends Level {
+public class RandomWorld extends World {
 	private static final Random RANDOM = new Random();
 
-	public RandomLevel(int width, int height) {
+	public RandomWorld(int width, int height) {
 		super(width, height);
 	}
 	
 	@Override
-	protected void generateLevel() {
+	protected void generateWorld() {
 		for (int y = 0; y < height; y ++) {
 			for (int x = 0 ; x < width; x ++) {
 				tiles[x + (y * width)] = RANDOM.nextInt(4);

@@ -1,14 +1,15 @@
-package zhrfrd.terranova.level.tile;
+package zhrfrd.terranova.world.tile;
 
 import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.graphics.Sprite;
 
-public class GrassTile extends Tile {
+public class VoidTile extends Tile {
+
 	/**
-	 * A tile representing grassland.
+	 * A tile representing void.
 	 * @param sprite The sprite assigned to the tile.
 	 */
-	public GrassTile(Sprite sprite) {
+	public VoidTile(Sprite sprite) {
 		super(sprite);
 	}
 

@@ -8,8 +8,9 @@ public class Sprite {
 	private SpriteSheet sheet;
 	
 	public static Sprite grassland = new Sprite(16, 0, 0, SpriteSheet.tiles);
-	public static Sprite mountain = new Sprite(16, 1, 1, SpriteSheet.tiles);
-	public static Sprite voidSprite = new Sprite(16, 0x7DF9FF);
+	public static Sprite lake = new Sprite(16, 1, 0, SpriteSheet.tiles);
+	public static Sprite mountain = new Sprite(16, 2, 0, SpriteSheet.tiles);
+	public static Sprite voidSprite = new Sprite(16, 0xE7D0AE);
 	
 	/**
 	 * The Sprite class represent the sprite of a particular graphic element of the game.

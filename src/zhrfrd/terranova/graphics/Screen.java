@@ -2,7 +2,7 @@ package zhrfrd.terranova.graphics;
 
 import java.util.Random;
 
-import zhrfrd.terranova.level.tile.Tile;
+import zhrfrd.terranova.world.tile.Tile;
 
 public class Screen {
 	public final int TILE_SIZE_MASK = 4;   // 16 pixels  

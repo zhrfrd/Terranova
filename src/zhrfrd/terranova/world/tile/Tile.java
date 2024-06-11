@@ -1,4 +1,4 @@
-package zhrfrd.terranova.level.tile;
+package zhrfrd.terranova.world.tile;
 
 import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.graphics.Sprite;
@@ -9,6 +9,7 @@ public abstract class Tile {
 	public Sprite sprite;
 	public static Tile grassland = new GrassTile(Sprite.grassland);
 	public static Tile mountain = new MountainTile(Sprite.mountain);
+	public static Tile lake = new LakeTile(Sprite.lake);
 	public static Tile voidTile = new VoidTile(Sprite.voidSprite);
 	
 	/**

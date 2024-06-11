@@ -1,15 +1,14 @@
-package zhrfrd.terranova.level.tile;
+package zhrfrd.terranova.world.tile;
 
 import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.graphics.Sprite;
 
-public class VoidTile extends Tile {
-
+public class MountainTile extends Tile {
 	/**
-	 * A tile representing void.
+	 * A tile representing a mountain.
 	 * @param sprite The sprite assigned to the tile.
 	 */
-	public VoidTile(Sprite sprite) {
+	public MountainTile(Sprite sprite) {
 		super(sprite);
 	}
 

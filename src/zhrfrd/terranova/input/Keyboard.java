@@ -17,7 +17,7 @@ public class Keyboard implements KeyListener {
 		left = keys[KeyEvent.VK_LEFT] || keys[KeyEvent.VK_A];
 		right = keys[KeyEvent.VK_RIGHT] || keys[KeyEvent.VK_D];
 
-		performance = keys[KeyEvent.VK_F];
+		performance = keys[KeyEvent.VK_P];
 	}
 
 	@Override

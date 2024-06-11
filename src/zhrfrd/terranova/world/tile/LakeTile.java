@@ -1,14 +1,14 @@
-package zhrfrd.terranova.level.tile;
+package zhrfrd.terranova.world.tile;
 
 import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.graphics.Sprite;
 
-public class MountainTile extends Tile {
+public class LakeTile extends Tile {
 	/**
-	 * A tile representing a mountain.
+	 * A tile representing lake.
 	 * @param sprite The sprite assigned to the tile.
 	 */
-	public MountainTile(Sprite sprite) {
+	public LakeTile(Sprite sprite) {
 		super(sprite);
 	}
 

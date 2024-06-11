@@ -13,5 +13,6 @@ I'm still not sure if developing a space game or a classic land strategy game.
 	- [ ] When moving an object on the map, it must be centred in the current tile.
 	- [ ] Allow movement around the map by dragging and dropping.
 		- [x] Before drag-drop map, support map movement by selecting a particular part of the screen.
-	- [ ] Fix IndexOutOfBounds exception when scrolling too south on the map. Need to set boundaries of the map so to limit the scroll 
+	- [ ] Fix IndexOutOfBounds exception when scrolling too south on the map. Need to set boundaries of the map so to limit the scroll.
+		- [ ] Improve drag and drop offsets calculation.
 - [ ] Use bitwize operation when possible for optimisation.

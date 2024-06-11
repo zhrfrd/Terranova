@@ -13,8 +13,8 @@ import javax.swing.JFrame;
 import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.input.Keyboard;
 import zhrfrd.terranova.input.Mouse;
-import zhrfrd.terranova.level.Level;
-import zhrfrd.terranova.level.RandomLevel;
+import zhrfrd.terranova.world.PerlinWorld;
+import zhrfrd.terranova.world.World;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -23,11 +23,12 @@ public class Game extends Canvas implements Runnable {
 	public static final int WIDTH = 300;
 	public static final int HEIGHT = WIDTH / 16 * 9;   // 16 : 9 resolution.
 	public static final int SCALE = 3;
+	private static final int LEVEL_SIZE = 100;
 	private Thread thread;   // Main thread of the game.
 	private JFrame frame;   // Main frame of the game window.
 	private	 Keyboard key;
 	private Mouse mouse;
-	private Level level;
+	private PerlinWorld world;
 	private Util util;
 	private boolean running = false;
 	private Screen screen;
@@ -45,7 +46,7 @@ public class Game extends Canvas implements Runnable {
 		
 		screen = new Screen(WIDTH, HEIGHT);
 		frame = new JFrame();
-		level = new RandomLevel(32, 32);
+		world = new PerlinWorld(LEVEL_SIZE, LEVEL_SIZE); //new World(LEVEL_SIZE, LEVEL_SIZE);// new RandomWorld(LEVEL_SIZE, LEVEL_SIZE);
 		key = new Keyboard();
 		addKeyListener(key);
 		
@@ -158,7 +159,7 @@ public class Game extends Canvas implements Runnable {
 		
 		screen.clear();
 //		screen.render(x, y);
-		level.render(-xTotalOffset, -yTotalOffset, xTotalOffset, yTotalOffset, screen);
+		world.render(-xTotalOffset, -yTotalOffset, xTotalOffset, yTotalOffset, screen);
 		
 		for (int i = 0; i < pixels.length; i ++) {
 			pixels[i] = screen.pixels[i];
@@ -187,11 +188,19 @@ public class Game extends Canvas implements Runnable {
 	 * Get the current mouse event and update the game status based on the outcome.
 	 */
 	private void updateMouseEvents() {
-		if (Mouse.isDoubleClicked) {
-			xTotalOffset += (screen.width / 2) - (Mouse.getXmouseClick() / SCALE);			
-			yTotalOffset += (screen.height / 2) - (Mouse.getYmouseClick() / SCALE);
+//		if (Mouse.isDoubleClicked) {
+//			if ((screen.width / 2) - (Mouse.getXmouseClick() / SCALE) <= 0) {
+//				xTotalOffset += (screen.width / 2) - (Mouse.getXmouseClick() / SCALE);
+//			}
+//			
+//			if ((screen.height / 2) - (Mouse.getYmouseClick() / SCALE) <= 0) {
+//				yTotalOffset += (screen.height / 2) - (Mouse.getYmouseClick() / SCALE);
+//			}
+//			
+//			Mouse.isDoubleClicked = false; 
+//		}
+		if (Mouse.isClicked) {
 			
-			Mouse.isDoubleClicked = false; 
 		}
 		
 		if (!Mouse.isDragged) {
@@ -203,8 +212,17 @@ public class Game extends Canvas implements Runnable {
 			int xDrag = Mouse.getXmouseDrag() / SCALE;
 			int yDrag = Mouse.getYmouseDrag() / SCALE;
 			
-			xTotalOffset = xLastOffset + xDrag - xInitial;
-			yTotalOffset = yLastOffset + yDrag - yInitial;
+			System.out.println(xLastOffset + xDrag - xInitial);
+			
+			// TODO: Improve map drag when you reach the edge. The drag should stop immediately
+			// as soon as you reach the edges of the map
+//			if (xLastOffset + xDrag - xInitial <= 0 && xLastOffset + xDrag - xInitial > -230) {
+				xTotalOffset = xLastOffset + xDrag - xInitial;
+//			}
+			
+//			if (yLastOffset + yDrag - yInitial <= 0 && yLastOffset + yDrag - yInitial > -352) {
+				yTotalOffset = yLastOffset + yDrag - yInitial;
+//			}
 		}
 	}
 	
