@@ -10,6 +10,7 @@ public abstract class Tile {
 	public static Tile grassland = new GrassTile(Sprite.grassland);
 	public static Tile mountain = new MountainTile(Sprite.mountain);
 	public static Tile lake = new LakeTile(Sprite.lake);
+	public static Tile forest = new LakeTile(Sprite.forest);
 	public static Tile voidTile = new VoidTile(Sprite.voidSprite);
 	
 	/**

@@ -32,12 +32,14 @@ public class PerlinWorld {
             for (int x = 0; x < width; x++) {
                 double value = perlin.noise(x * scale, y * scale);
                 
-                if (value < 0.4) {
-                    tiles[x + y * width] = 0;   // Grassland
-                } else if (value < 0.7) {
+                if (value < 0.3) {
+                    tiles[x + y * width] = 0;   // Lake
+                } else if (value < 0.5) {
                     tiles[x + y * width] = 1;   // Mountain
+                } else if (value < 0.7) {
+                    tiles[x + y * width] = 2;   // Grassland
                 } else {
-                    tiles[x + y * width] = 2;   // Lake
+                    tiles[x + y * width] = 3;   // Forest
                 }
             }
         }
@@ -96,11 +98,13 @@ public class PerlinWorld {
 
         switch (tiles[x + y * width]) {
             case 0:
-                return Tile.grassland;
+                return Tile.lake;
             case 1:
                 return Tile.mountain;
             case 2:
-                return Tile.lake;
+                return Tile.grassland;
+            case 3:
+                return Tile.forest;
         }
 
         return Tile.voidTile;

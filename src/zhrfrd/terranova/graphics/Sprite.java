@@ -10,6 +10,7 @@ public class Sprite {
 	public static Sprite grassland = new Sprite(16, 0, 0, SpriteSheet.tiles);
 	public static Sprite lake = new Sprite(16, 1, 0, SpriteSheet.tiles);
 	public static Sprite mountain = new Sprite(16, 2, 0, SpriteSheet.tiles);
+	public static Sprite forest = new Sprite(16, 3, 0, SpriteSheet.tiles);
 	public static Sprite voidSprite = new Sprite(16, 0xE7D0AE);
 	
 	/**
