@@ -1,4 +1,4 @@
-package zhrfrd.terranova.main;
+package zhrfrd.terranova.util;
 
 import javax.swing.JFrame;
 
@@ -19,7 +19,7 @@ public class Util {
 	 * @param updates The number of updates per seconds.
 	 * @param frames The number of frames per seconds.
 	 */
-	protected void showPerformanceOnTitle(String title, int updates, int frames) {
+	public void showPerformanceOnTitle(String title, int updates, int frames) {
 		frame.setTitle(title + " | " + updates + " ups, " + frames + " fps");
 	}
 	
@@ -27,7 +27,7 @@ public class Util {
 	 * Reset the JFrame title of the game to the original form (which consists simply on the name of the game). 
 	 * @param title The original JFrame title.
 	 */
-	protected void resetOriginalTitle(String title) {
+	public void resetOriginalTitle(String title) {
 		frame.setTitle(title);
 	}
 }

@@ -7,18 +7,20 @@ public abstract class Tile {
 	public int x;
 	public int y;
 	public Sprite sprite;
-	public static Tile grassland = new GrassTile(Sprite.grassland);
+	public String name;
+	public static Tile grassland = new GrasslandTile(Sprite.grassland);
 	public static Tile mountain = new MountainTile(Sprite.mountain);
 	public static Tile lake = new LakeTile(Sprite.lake);
-	public static Tile forest = new LakeTile(Sprite.forest);
+	public static Tile forest = new ForestTile(Sprite.forest);
 	public static Tile voidTile = new VoidTile(Sprite.voidSprite);
 	
 	/**
 	 * A blueprint of a tile object.
 	 * @param sprite The sprite assigned to the tile.
 	 */
-	public Tile(Sprite sprite) {
+	public Tile(Sprite sprite, String name) {
 		this.sprite = sprite;
+		this.name = name;
 	}
 
 	/**
@@ -37,7 +39,7 @@ public abstract class Tile {
 	 * @return {@code true}: if the tile is solid<br>
 	 * 		   {@code false}: if the tile is not solid.
 	 */
-	public boolean solid() {
+	public boolean isSolid() {
 		return false;
 	}
 }

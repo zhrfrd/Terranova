@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.input.Keyboard;
 import zhrfrd.terranova.input.Mouse;
+import zhrfrd.terranova.util.Util;
 import zhrfrd.terranova.world.PerlinWorld;
 import zhrfrd.terranova.world.World;
 
@@ -119,8 +120,8 @@ public class Game extends Canvas implements Runnable {
 	 */
 	public synchronized void startThreadGame() {
 		running = true;
-		
 		thread = new Thread(this, "Display");
+		
 		thread.start();
 	}
 	
@@ -179,8 +180,8 @@ public class Game extends Canvas implements Runnable {
 	
 	private int xTotalOffset = 0;
 	private int yTotalOffset = 0;
-	private int xInitial = 0;
-	private int yInitial = 0;
+	private int xInitialScaled = 0;
+	private int yInitialScaled = 0;
 	private int xLastOffset = 0;
 	private int yLastOffset = 0;
 	
@@ -188,41 +189,26 @@ public class Game extends Canvas implements Runnable {
 	 * Get the current mouse event and update the game status based on the outcome.
 	 */
 	private void updateMouseEvents() {
-//		if (Mouse.isDoubleClicked) {
-//			if ((screen.width / 2) - (Mouse.getXmouseClick() / SCALE) <= 0) {
-//				xTotalOffset += (screen.width / 2) - (Mouse.getXmouseClick() / SCALE);
-//			}
-//			
-//			if ((screen.height / 2) - (Mouse.getYmouseClick() / SCALE) <= 0) {
-//				yTotalOffset += (screen.height / 2) - (Mouse.getYmouseClick() / SCALE);
-//			}
-//			
-//			Mouse.isDoubleClicked = false; 
-//		}
-		if (Mouse.isClicked) {
-			
-		}
+		xInitialScaled = Mouse.getX() / SCALE;
+		yInitialScaled = Mouse.getY() / SCALE;
+		
 		
 		if (!Mouse.isDragged) {
-			xInitial = Mouse.getX() / SCALE;
-			yInitial = Mouse.getY() / SCALE;
 			xLastOffset = screen.lastXoffset;
 			yLastOffset = screen.lastYoffset; 
 		} else {
-			int xDrag = Mouse.getXmouseDrag() / SCALE;
-			int yDrag = Mouse.getYmouseDrag() / SCALE;
-			
-			System.out.println(xLastOffset + xDrag - xInitial);
+			int xDragScaled = Mouse.getXmouseDrag() / SCALE;
+			int yDragScaled = Mouse.getYmouseDrag() / SCALE;
 			
 			// TODO: Improve map drag when you reach the edge. The drag should stop immediately
 			// as soon as you reach the edges of the map
-//			if (xLastOffset + xDrag - xInitial <= 0 && xLastOffset + xDrag - xInitial > -230) {
-				xTotalOffset = xLastOffset + xDrag - xInitial;
-//			}
-			
-//			if (yLastOffset + yDrag - yInitial <= 0 && yLastOffset + yDrag - yInitial > -352) {
-				yTotalOffset = yLastOffset + yDrag - yInitial;
-//			}
+			xTotalOffset = xLastOffset + xDragScaled - xInitialScaled;
+			yTotalOffset = yLastOffset + yDragScaled - yInitialScaled;
+		}
+		
+		if (Mouse.isPressed) {
+			System.out.println(world.getTile((Mouse.getX() / SCALE - xTotalOffset) / 16, (Mouse.getY() / SCALE - yTotalOffset )/ 16).name);
+			Mouse.isPressed = false;
 		}
 	}
 	

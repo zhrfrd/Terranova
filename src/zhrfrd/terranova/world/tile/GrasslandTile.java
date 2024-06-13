@@ -3,13 +3,15 @@ package zhrfrd.terranova.world.tile;
 import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.graphics.Sprite;
 
-public class GrassTile extends Tile {
+public class GrasslandTile extends Tile {
+	public static final String NAME = "grassland";
+	
 	/**
 	 * A tile representing grassland.
 	 * @param sprite The sprite assigned to the tile.
 	 */
-	public GrassTile(Sprite sprite) {
-		super(sprite);
+	public GrasslandTile(Sprite sprite) {
+		super(sprite, NAME);
 	}
 
 	@Override

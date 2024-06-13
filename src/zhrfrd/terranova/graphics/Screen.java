@@ -1,7 +1,5 @@
 package zhrfrd.terranova.graphics;
 
-import java.util.Random;
-
 import zhrfrd.terranova.world.tile.Tile;
 
 public class Screen {
@@ -17,8 +15,6 @@ public class Screen {
 	public int lastXoffset = 0;
 	public int lastYoffset = 0;
 	public int[] pixels;
-	public int[] tiles = new int[MAP_SIZE * MAP_SIZE];
-	private Random random = new Random();
 	
 	/**
 	 * Create a new Screen object responsible for the rendering of the graphics.
@@ -29,10 +25,6 @@ public class Screen {
 		this.width = width;
 		this.height = height;
 		pixels = new int[width * height];
-		
-		for (int i = 0; i < MAP_SIZE * MAP_SIZE; i ++) {
-			tiles[i] = random.nextInt(0xffffff);
-		}
 	}
 	
 	// Absolute position: position relative to the entire world.

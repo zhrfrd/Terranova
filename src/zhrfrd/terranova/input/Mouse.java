@@ -13,6 +13,7 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	private static int yMouseDrag = -1;
 	private static int mouseButton = -1;
 	public static boolean isClicked = false;
+	public static boolean isPressed = false;
 	public static boolean isDoubleClicked = false;
 	public static boolean isDragged = false;
 
@@ -32,12 +33,14 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		mouseButton = e.getButton();
+		isPressed = true;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		mouseButton = -1;
 		isDragged = false;
+		isPressed = false;
 	}
 
 	@Override

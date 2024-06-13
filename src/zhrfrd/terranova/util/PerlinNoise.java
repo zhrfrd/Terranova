@@ -1,4 +1,4 @@
-package zhrfrd.terranova.world;
+package zhrfrd.terranova.util;
 
 import java.util.Random;
 

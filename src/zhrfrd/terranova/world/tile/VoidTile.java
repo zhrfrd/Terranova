@@ -4,13 +4,14 @@ import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.graphics.Sprite;
 
 public class VoidTile extends Tile {
+	public static final String NAME = "void";
 
 	/**
 	 * A tile representing void.
 	 * @param sprite The sprite assigned to the tile.
 	 */
 	public VoidTile(Sprite sprite) {
-		super(sprite);
+		super(sprite, NAME);
 	}
 
 	@Override

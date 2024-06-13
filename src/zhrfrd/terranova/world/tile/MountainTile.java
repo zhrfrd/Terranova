@@ -4,12 +4,14 @@ import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.graphics.Sprite;
 
 public class MountainTile extends Tile {
+	public static final String NAME = "mountain";
+	
 	/**
 	 * A tile representing a mountain.
 	 * @param sprite The sprite assigned to the tile.
 	 */
 	public MountainTile(Sprite sprite) {
-		super(sprite);
+		super(sprite, NAME);
 	}
 
 	@Override

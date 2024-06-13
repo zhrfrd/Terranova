@@ -1,12 +1,17 @@
 package zhrfrd.terranova.world;
 
 import zhrfrd.terranova.graphics.Screen;
+import zhrfrd.terranova.util.PerlinNoise;
+import zhrfrd.terranova.world.tile.LakeTile;
+import zhrfrd.terranova.world.tile.ForestTile;
+import zhrfrd.terranova.world.tile.GrasslandTile;
+import zhrfrd.terranova.world.tile.MountainTile;
 import zhrfrd.terranova.world.tile.Tile;
 
 public class PerlinWorld {
     protected int width;
     protected int height;
-    protected int[] tiles;
+    protected Tile[] tiles;
 
     /**
 	 * Create a new world by simply specifying the width and height desired.
@@ -16,7 +21,7 @@ public class PerlinWorld {
     public PerlinWorld(int width, int height) {
         this.width = width;
         this.height = height;
-        tiles = new int[width * height];
+        tiles = new Tile[width * height];
 
         generateWorld();
     }
@@ -33,13 +38,13 @@ public class PerlinWorld {
                 double value = perlin.noise(x * scale, y * scale);
                 
                 if (value < 0.3) {
-                    tiles[x + y * width] = 0;   // Lake
+                    tiles[x + y * width] = Tile.lake;
                 } else if (value < 0.5) {
-                    tiles[x + y * width] = 1;   // Mountain
+                    tiles[x + y * width] = Tile.mountain;
                 } else if (value < 0.7) {
-                    tiles[x + y * width] = 2;   // Grassland
+                    tiles[x + y * width] = Tile.grassland;
                 } else {
-                    tiles[x + y * width] = 3;   // Forest
+                    tiles[x + y * width] = Tile.forest;
                 }
             }
         }
@@ -81,31 +86,26 @@ public class PerlinWorld {
     }
 
     /**
-	 * Get the tile.
+	 * Extract the actual tile to be rendered based on the current {@link tiles} index.
 	 * @param x The x position of the tile in the map (tile precision, not pixel precision).
 	 * @param y The y position of the tile in the map (tile precision, not pixel precision).
 	 * @return The tile.
 	 */
     public Tile getTile(int x, int y) {
-        if (x < 0 || y < 0 || x >= width || y >= height) {
+    	// Handle IndexOutOfBounds exception
+    	if (x < 0 || y < 0 || x >= width || y >= height || x + (y * width) >= width * height) {
             return Tile.voidTile;
         }
-        
-        // Handle IndexOutOfBounds exception
- 		if (x + (y * width) >= width * height) {
- 			return Tile.voidTile;
+ 		
+ 		if (tiles[x + y * width] == Tile.lake) {
+ 			return Tile.lake;
+    	} if (tiles[x + y * width] == Tile.mountain) {
+ 			return Tile.mountain;
+ 		} if (tiles[x + y * width] == Tile.grassland) {
+ 			return Tile.grassland;
+ 		} if (tiles[x + y * width] == Tile.forest) {
+ 			return Tile.forest;
  		}
-
-        switch (tiles[x + y * width]) {
-            case 0:
-                return Tile.lake;
-            case 1:
-                return Tile.mountain;
-            case 2:
-                return Tile.grassland;
-            case 3:
-                return Tile.forest;
-        }
 
         return Tile.voidTile;
     }
