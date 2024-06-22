@@ -13,9 +13,8 @@ import javax.swing.JFrame;
 import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.input.Keyboard;
 import zhrfrd.terranova.input.Mouse;
-import zhrfrd.terranova.util.Util;
+import zhrfrd.terranova.util.Tool;
 import zhrfrd.terranova.world.PerlinWorld;
-import zhrfrd.terranova.world.World;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -30,7 +29,7 @@ public class Game extends Canvas implements Runnable {
 	private	 Keyboard key;
 	private Mouse mouse;
 	private PerlinWorld world;
-	private Util util;
+	private Tool util;
 	private boolean running = false;
 	private Screen screen;
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -55,7 +54,7 @@ public class Game extends Canvas implements Runnable {
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
 		
-		util = new Util(frame);
+		util = new Tool(frame);
 	}
 
 	@Override
@@ -85,7 +84,6 @@ public class Game extends Canvas implements Runnable {
 			}
 			
 			render();
-			
 			frames ++;
 			
 			if (System.currentTimeMillis() - timer > 1000) {
@@ -93,7 +91,6 @@ public class Game extends Canvas implements Runnable {
 				
 				ups = updates;
 				fps = frames;
-				
 				updates = 0;
 				frames = 0;
 			}
@@ -159,7 +156,6 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		screen.clear();
-//		screen.render(x, y);
 		world.render(-xTotalOffset, -yTotalOffset, xTotalOffset, yTotalOffset, screen);
 		
 		for (int i = 0; i < pixels.length; i ++) {

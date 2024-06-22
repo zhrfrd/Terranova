@@ -2,14 +2,14 @@ package zhrfrd.terranova.util;
 
 import javax.swing.JFrame;
 
-public class Util {
+public class Tool {
 	JFrame frame;
 	
 	/**
 	 * This class contains some methods useful for debugging or to check performances.
 	 * @param frame The JFrame where to show any util info.
 	 */
-	public Util(JFrame frame) {
+	public Tool(JFrame frame) {
 		this.frame = frame;
 	}
 	

@@ -2,10 +2,6 @@ package zhrfrd.terranova.world;
 
 import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.util.PerlinNoise;
-import zhrfrd.terranova.world.tile.LakeTile;
-import zhrfrd.terranova.world.tile.ForestTile;
-import zhrfrd.terranova.world.tile.GrasslandTile;
-import zhrfrd.terranova.world.tile.MountainTile;
 import zhrfrd.terranova.world.tile.Tile;
 
 public class PerlinWorld {
