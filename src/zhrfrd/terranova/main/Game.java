@@ -15,6 +15,7 @@ import zhrfrd.terranova.input.Keyboard;
 import zhrfrd.terranova.input.Mouse;
 import zhrfrd.terranova.util.Tool;
 import zhrfrd.terranova.world.PerlinWorld;
+import zhrfrd.terranova.world.World;
 import zhrfrd.terranova.world.tile.Tile;
 
 public class Game extends Canvas implements Runnable {
@@ -29,7 +30,7 @@ public class Game extends Canvas implements Runnable {
 	private JFrame frame;   // Main frame of the game window.
 	private	 Keyboard key;
 	private Mouse mouse;
-	private PerlinWorld world;
+	private World world;
 	private Tool util;
 	private boolean running = false;
 	private Screen screen;

@@ -4,7 +4,7 @@ import zhrfrd.terranova.graphics.Screen;
 import zhrfrd.terranova.util.PerlinNoise;
 import zhrfrd.terranova.world.tile.Tile;
 
-public class PerlinWorld {
+public class PerlinWorld extends World {
     protected int width;
     protected int height;
     protected Tile[] tiles;
@@ -23,6 +23,7 @@ public class PerlinWorld {
         generateWorld();
     }
 
+    @Override
     /**
 	 * Proceed with the current level generation
 	 */
@@ -47,12 +48,14 @@ public class PerlinWorld {
         }
     }
     
+    @Override
     public void update() {
     }
 
     public int xTotalOffset = 0;
     public int yTotalOffset = 0;
 
+    @Override
     /**
 	 * Render ONLY the graphics visible within the corner pins of the screen.
 	 * @param xOffset The x offset caused by the mouse drag.
@@ -82,6 +85,7 @@ public class PerlinWorld {
         }
     }
 
+    @Override
     /**
 	 * Extract the actual tile to be rendered based on the current {@link tiles} index.
 	 * @param x The x position of the tile in the map (tile precision, not pixel precision).
@@ -107,10 +111,12 @@ public class PerlinWorld {
         return Tile.voidTile;
     }
     
+    @Override
     public Tile getSelectedTile() {
     	return selectedTile;
     }
     
+    @Override
     public void setSelectedTile(Tile selectedTile) {
     	this.selectedTile = selectedTile;
     }
