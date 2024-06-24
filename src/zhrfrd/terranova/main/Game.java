@@ -205,9 +205,10 @@ public class Game extends Canvas implements Runnable {
 		
 		if (Mouse.isPressed) {
 			Tile selectedTile = world.getTile((Mouse.getX() / SCALE - xTotalOffset) / 16, (Mouse.getY() / SCALE - yTotalOffset )/ 16);
-			System.out.println(selectedTile.name);
 			
-			world.selectedTile = selectedTile;
+			world.setSelectedTile(selectedTile);
+			System.out.println(world.getSelectedTile().bonusDefence);
+
 			
 			Mouse.isPressed = false;
 		}

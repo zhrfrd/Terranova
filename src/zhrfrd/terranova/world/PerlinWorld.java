@@ -8,7 +8,7 @@ public class PerlinWorld {
     protected int width;
     protected int height;
     protected Tile[] tiles;
-    public Tile selectedTile;
+    private Tile selectedTile;
 
     /**
 	 * Create a new world by simply specifying the width and height desired.
@@ -105,5 +105,13 @@ public class PerlinWorld {
  		}
 
         return Tile.voidTile;
+    }
+    
+    public Tile getSelectedTile() {
+    	return selectedTile;
+    }
+    
+    public void setSelectedTile(Tile selectedTile) {
+    	this.selectedTile = selectedTile;
     }
 }

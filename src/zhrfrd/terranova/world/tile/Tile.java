@@ -13,8 +13,8 @@ public abstract class Tile {
 	public static Tile lake = new LakeTile(Sprite.lake);
 	public static Tile forest = new ForestTile(Sprite.forest);
 	public static Tile voidTile = new VoidTile(Sprite.voidSprite);
-	public final int bonusDefence = 0;
-	
+	public int bonusAttack = 0;
+	public int bonusDefence = 0;
 	
 	/**
 	 * A blueprint of a tile object.
@@ -43,13 +43,5 @@ public abstract class Tile {
 	 */
 	public boolean isSolid() {
 		return false;
-	}
-	
-	public int getBonusDefence() {
-		 return 0;
-	}
-	
-	public int getBonusAttack() {
-		 return 0;
 	}
 }
