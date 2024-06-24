@@ -15,6 +15,7 @@ import zhrfrd.terranova.input.Keyboard;
 import zhrfrd.terranova.input.Mouse;
 import zhrfrd.terranova.util.Tool;
 import zhrfrd.terranova.world.PerlinWorld;
+import zhrfrd.terranova.world.tile.Tile;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -203,7 +204,11 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		if (Mouse.isPressed) {
-			System.out.println(world.getTile((Mouse.getX() / SCALE - xTotalOffset) / 16, (Mouse.getY() / SCALE - yTotalOffset )/ 16).name);
+			Tile selectedTile = world.getTile((Mouse.getX() / SCALE - xTotalOffset) / 16, (Mouse.getY() / SCALE - yTotalOffset )/ 16);
+			System.out.println(selectedTile.name);
+			
+			world.selectedTile = selectedTile;
+			
 			Mouse.isPressed = false;
 		}
 	}

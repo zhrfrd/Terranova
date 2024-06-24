@@ -8,6 +8,7 @@ public class PerlinWorld {
     protected int width;
     protected int height;
     protected Tile[] tiles;
+    public Tile selectedTile;
 
     /**
 	 * Create a new world by simply specifying the width and height desired.

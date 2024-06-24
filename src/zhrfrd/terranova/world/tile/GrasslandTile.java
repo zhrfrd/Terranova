@@ -5,6 +5,8 @@ import zhrfrd.terranova.graphics.Sprite;
 
 public class GrasslandTile extends Tile {
 	public static final String NAME = "grassland";
+	private final int BONUS_DEFENCE = 0;
+	private final int BONUS_ATTACK = 0;
 	
 	/**
 	 * A tile representing grassland.
@@ -17,5 +19,15 @@ public class GrasslandTile extends Tile {
 	@Override
 	public void render(int x, int y, Screen screen) {
 		screen.renderTile(x << 4, y << 4, this);
+	}
+	
+	@Override
+	public int getBonusDefence() {
+		 return BONUS_DEFENCE;
+	}
+	
+	@Override
+	public int getBonusAttack() {
+		 return BONUS_ATTACK;
 	}
 }
